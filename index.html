@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="The Malone Lab at University College Dublin studies kidney transplant rejection and glomerular disease using single-cell multiomics. Led by Dr. Andrew Malone MB BCh BAO MD, Transplant Nephrologist at SVUH Dublin."/>
+<title>Malone Lab — Kidney Transplant Genetics | UCD · SVUH Dublin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07111c;--bg1:#0b1928;--bg2:#0e2035;--bg3:#112540;
+  --panel:#0d1e30;--bdr:rgba(42,90,145,0.22);--bdr2:rgba(62,120,190,0.35);
+  --navy:#1d4e8a;--blue:#3472b8;--sky:#5ea3e0;--teal:#3aaa8c;--gold:#c9a84c;
+  --text:#cdd8e8;--muted:#6d8aaa;--dim:#3d5570;--white:#f2f6fc;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 1px 1px,rgba(52,114,184,0.07) 1px,transparent 0);background-size:28px 28px;}
+#bar{position:fixed;top:0;left:0;height:2px;z-index:9999;background:linear-gradient(90deg,var(--blue),var(--teal));width:0%;transition:width .08s linear;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(7,17,28,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.2rem,5vw,4.5rem);height:60px;transition:box-shadow .3s;}
+nav.on{box-shadow:0 4px 28px rgba(0,0,0,.6);}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.2;}
+.brand-top{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);letter-spacing:.01em;}
+.brand-sub{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);}
+.nl{display:flex;align-items:center;gap:0;list-style:none;}
+.nl a{text-decoration:none;color:var(--muted);font-family:'Crimson Pro',serif;font-size:.88rem;font-weight:400;padding:.32rem .78rem;border-radius:3px;transition:color .2s,background .2s;}
+.nl a:hover{color:var(--white);background:rgba(52,114,184,.1);}
+.nl .cta{border:1px solid var(--navy);color:var(--sky);}
+.nl .cta:hover{background:rgba(52,114,184,.15);border-color:var(--blue);}
+.burger{display:none;background:none;border:none;cursor:pointer;color:var(--text);padding:.4rem;}
+
+.hero{position:relative;z-index:1;min-height:100vh;padding-top:60px;display:flex;align-items:center;overflow:hidden;}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none;}
+.hero::before{right:-120px;top:10%;width:600px;height:600px;background:radial-gradient(circle,rgba(52,114,184,.1) 0%,transparent 68%);animation:breathe 9s ease-in-out infinite;}
+.hero::after{left:-60px;bottom:5%;width:380px;height:380px;background:radial-gradient(circle,rgba(58,170,140,.06) 0%,transparent 70%);animation:breathe 12s ease-in-out infinite reverse;}
+@keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.ring-svg{position:absolute;right:-90px;top:50%;transform:translateY(-50%);width:640px;height:640px;pointer-events:none;opacity:.55;}
+.ring-svg circle{fill:none;stroke:var(--bdr);stroke-width:1;}
+.ring-svg ellipse{fill:none;stroke:rgba(58,170,140,.07);stroke-width:1;}
+.hi{position:relative;z-index:2;max-width:1140px;margin:0 auto;padding:clamp(3rem,8vw,7rem) clamp(1.2rem,5vw,4.5rem);display:grid;grid-template-columns:1.15fr 1fr;gap:5rem;align-items:center;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);margin-bottom:1.1rem;display:flex;align-items:center;gap:.65rem;}
+.kicker::before{content:'';width:24px;height:1px;background:var(--teal);}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:700;line-height:1.04;color:var(--white);letter-spacing:-.02em;margin-bottom:.5rem;}
+.creds{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;color:var(--sky);margin-bottom:.6rem;}
+.role{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin-bottom:1.6rem;}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2rem;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .62rem;border-radius:3px;border:1px solid;}
+.ca{border-color:rgba(58,170,140,.4);color:var(--teal);background:rgba(58,170,140,.06);}
+.cb{border-color:rgba(52,114,184,.4);color:var(--sky);background:rgba(52,114,184,.06);}
+.cc{border-color:rgba(201,168,76,.35);color:var(--gold);background:rgba(201,168,76,.05);}
+.hdesc{font-size:1rem;color:var(--muted);line-height:1.82;max-width:500px;margin-bottom:2.4rem;}
+.brow{display:flex;gap:.85rem;flex-wrap:wrap;}
+.bp{background:var(--blue);color:#fff;text-decoration:none;padding:.72rem 1.7rem;border-radius:3px;font-family:'Crimson Pro',serif;font-size:.92rem;font-weight:600;box-shadow:0 4px 18px rgba(52,114,184,.3);transition:background .2s,transform .15s,box-shadow .2s;}
+.bp:hover{background:var(--sky);transform:translateY(-1px);box-shadow:0 7px 24px rgba(52,114,184,.45);}
+.bg{border:1px solid var(--bdr2);color:var(--muted);text-decoration:none;padding:.72rem 1.7rem;border-radius:3px;font-family:'Crimson Pro',serif;font-size:.92rem;transition:border-color .2s,color .2s;}
+.bg:hover{border-color:var(--blue);color:var(--white);}
+.sc{background:var(--panel);border:1px solid var(--bdr);border-radius:6px;padding:2rem 1.8rem;display:flex;flex-direction:column;gap:1.4rem;}
+.sc-h{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--bdr);padding-bottom:.9rem;}
+.sc-r{display:flex;gap:1rem;align-items:flex-start;}
+.sc-n{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;color:var(--sky);line-height:1;min-width:64px;text-align:right;flex-shrink:0;}
+.sc-b{font-size:.88rem;color:var(--muted);line-height:1.5;padding-top:.25rem;}
+.sc-b strong{display:block;color:var(--white);font-weight:600;font-size:.9rem;margin-bottom:.1rem;}
+.sc-sep{border:none;border-top:1px solid var(--bdr);}
+.sc-f{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:var(--dim);text-align:center;border-top:1px solid var(--bdr);padding-top:.8rem;}
+
+section{position:relative;z-index:1;}
+.sec{max-width:1140px;margin:0 auto;padding:clamp(3.5rem,7vw,6rem) clamp(1.2rem,5vw,4.5rem);}
+.eye{font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;}
+.eye::before{content:'';width:18px;height:1px;background:var(--teal);}
+h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.4vw,2.7rem);font-weight:700;color:var(--white);line-height:1.12;letter-spacing:-.01em;margin-bottom:.8rem;}
+.lead{font-size:1rem;color:var(--muted);max-width:620px;line-height:1.78;}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.fu.vis{opacity:1;transform:none;}
+
+.rs{background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.8rem;}
+.p{background:var(--bg2);border:1px solid var(--bdr);border-radius:5px;padding:2.2rem 2rem;position:relative;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+.p::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--teal));}
+.p:hover{border-color:var(--bdr2);box-shadow:0 10px 36px rgba(0,0,0,.45);}
+.pn{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--dim);line-height:1;margin-bottom:.8rem;}
+.p h3{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--white);margin-bottom:.85rem;line-height:1.22;}
+.p p{font-size:.94rem;color:var(--muted);line-height:1.72;margin-bottom:1.1rem;}
+.tr{display:flex;flex-wrap:wrap;gap:.35rem;}
+.t{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;border-radius:2px;background:rgba(52,114,184,.08);border:1px solid rgba(52,114,184,.2);color:var(--sky);}
+.t.g{background:rgba(58,170,140,.07);border-color:rgba(58,170,140,.22);color:var(--teal);}
+.ms{background:var(--panel);border:1px solid var(--bdr);border-radius:5px;padding:1.8rem 2rem;display:flex;gap:1.4rem;align-items:flex-start;margin-top:1.4rem;}
+.ms-star{font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--gold);line-height:1;flex-shrink:0;}
+.ms-txt{font-size:.92rem;color:var(--muted);line-height:1.7;}
+.ms-txt strong{color:var(--white);}
+
+.mts{background:var(--bg);}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.8rem;}
+.mc{background:var(--panel);border:1px solid var(--bdr);border-radius:5px;padding:1.7rem 1.5rem;transition:border-color .2s,transform .2s;}
+.mc:hover{border-color:var(--bdr2);transform:translateY(-3px);}
+.mc-e{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid var(--bdr);padding-bottom:.65rem;margin-bottom:.9rem;}
+.mc h3{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--white);margin-bottom:.55rem;}
+.mc p{font-size:.88rem;color:var(--muted);line-height:1.62;}
+
+.pubs{background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);}
+.pl{margin-top:2.5rem;display:flex;flex-direction:column;gap:0;}
+.pub{display:grid;grid-template-columns:52px 1fr;gap:1.4rem;padding:1.7rem 0;border-bottom:1px solid var(--bdr);}
+.pub:last-child{border-bottom:none;}
+.py{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--dim);text-align:right;padding-top:.2rem;letter-spacing:.04em;}
+.pt{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:500;color:var(--white);line-height:1.33;margin-bottom:.38rem;}
+.pt a{color:inherit;text-decoration:none;transition:color .2s;}
+.pt a:hover{color:var(--sky);}
+.pau{font-size:.82rem;color:var(--dim);margin-bottom:.28rem;line-height:1.5;}
+.pau .me{color:var(--muted);font-weight:600;}
+.pj{font-family:'Crimson Pro',serif;font-style:italic;font-size:.88rem;color:var(--sky);}
+.pj .pm{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:.65rem;color:var(--dim);margin-left:.4rem;}
+.bdg{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.13rem .42rem;border-radius:2px;margin-left:.4rem;vertical-align:middle;background:rgba(58,170,140,.1);border:1px solid rgba(58,170,140,.28);color:var(--teal);}
+.bdg.gd{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--gold);}
+.plinks{margin-top:2.2rem;display:flex;gap:.85rem;flex-wrap:wrap;}
+
+.abt{background:var(--bg);}
+.ag{display:grid;grid-template-columns:1fr 310px;gap:4rem;align-items:start;margin-top:2.8rem;}
+.bio p{font-size:.97rem;color:var(--muted);line-height:1.82;margin-bottom:1rem;}
+.bio p:last-child{margin-bottom:0;}
+.scard{background:var(--panel);border:1px solid var(--bdr);border-radius:5px;padding:1.4rem 1.5rem;margin-bottom:1rem;}
+.scard:last-child{margin-bottom:0;}
+.slbl{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--bdr);padding-bottom:.6rem;margin-bottom:.9rem;display:block;}
+.cl{list-style:none;display:flex;flex-direction:column;gap:.42rem;}
+.cl li{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);display:flex;gap:.4rem;align-items:baseline;}
+.cl li::before{content:'—';color:var(--dim);flex-shrink:0;}
+.aw{margin-bottom:.85rem;padding-bottom:.85rem;border-bottom:1px solid var(--bdr);}
+.aw:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.awt{font-size:.88rem;color:var(--white);font-weight:600;line-height:1.28;margin-bottom:.18rem;}
+.awy{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--gold);}
+.tl{display:flex;flex-direction:column;}
+.tlr{display:grid;grid-template-columns:46px 1fr;gap:.9rem;padding:1rem 0;border-bottom:1px solid var(--bdr);position:relative;}
+.tlr:last-child{border-bottom:none;}
+.tly{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--dim);text-align:right;padding-top:.18rem;letter-spacing:.03em;}
+.tld{position:absolute;left:44px;top:1.55rem;width:6px;height:6px;border-radius:50%;background:var(--blue);border:2px solid var(--bg1);transform:translateX(-50%);}
+.tlc strong{display:block;font-size:.92rem;font-family:'Crimson Pro',serif;font-weight:600;color:var(--white);margin-bottom:.12rem;}
+.tlc span{font-size:.8rem;color:var(--dim);}
+
+.bbs{background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);}
+.bbg{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.8rem;}
+.bbc{background:var(--bg2);border:1px solid var(--bdr);border-radius:5px;padding:2rem;position:relative;overflow:hidden;}
+.bbc::after{content:'';position:absolute;bottom:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(52,114,184,.07),transparent 70%);}
+.bbt{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);display:block;margin-bottom:.9rem;}
+.bbc h3{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--white);margin-bottom:.75rem;}
+.bbc p{font-size:.9rem;color:var(--muted);line-height:1.65;}
+
+.ts{background:var(--bg);}
+.tb{background:var(--bg2);border:1px solid var(--bdr);border-radius:6px;padding:2.5rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:1rem;}
+.tb h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:.5rem;}
+.tb p{font-size:.92rem;color:var(--muted);line-height:1.65;max-width:520px;}
+
+.js{background:var(--bg1);border-top:1px solid var(--bdr);}
+.ji{background:var(--bg2);border:1px solid var(--bdr);border-radius:6px;padding:clamp(2rem,5vw,3.8rem);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;position:relative;overflow:hidden;margin-top:2rem;}
+.ji::before{content:'';position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(58,170,140,.05),transparent 70%);}
+.ji p{font-size:.95rem;color:var(--muted);line-height:1.78;margin-bottom:1.2rem;}
+.cd{display:flex;gap:.8rem;align-items:flex-start;margin-bottom:.8rem;}
+.cdi{width:30px;height:30px;border-radius:3px;background:rgba(52,114,184,.1);border:1px solid rgba(52,114,184,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;color:var(--sky);}
+.cdv{font-size:.9rem;color:var(--muted);line-height:1.5;}
+.cdv a{color:var(--sky);text-decoration:none;transition:color .2s;}
+.cdv a:hover{color:var(--white);}
+.cdl{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:block;}
+
+footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var(--bdr);padding:clamp(1.8rem,4vw,2.8rem) clamp(1.2rem,5vw,4.5rem);}
+.fi{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.2rem;}
+.fbrand{font-family:'Playfair Display',serif;font-style:italic;font-size:.98rem;color:var(--muted);}
+.fl{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.fl a{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .2s;}
+.fl a:hover{color:var(--text);}
+.fc{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.06em;width:100%;border-top:1px solid var(--bdr);padding-top:1.1rem;margin-top:.4rem;}
+
+@media(max-width:960px){
+  .hi,.ag,.ji{grid-template-columns:1fr;gap:2.8rem;}
+  .pg,.mg,.bbg{grid-template-columns:1fr;}
+  .mg{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:620px){
+  .nl{display:none;}.burger{display:flex;}
+  .nl.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;bottom:0;background:var(--bg);padding:2rem;gap:.3rem;border-top:1px solid var(--bdr);z-index:998;}
+  .mg{grid-template-columns:1fr;}
+  .pub{grid-template-columns:40px 1fr;gap:1rem;}
+  .tb{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav id="nav">
+  <a href="#home" class="brand">
+    <span class="brand-top">Malone Lab</span>
+    <span class="brand-sub">Kidney Transplant Genetics · UCD–SVUH</span>
+  </a>
+  <ul class="nl" id="navlist">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#methods">Methods</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#biobanks">Biobanks</a></li>
+    <li><a href="#join" class="cta">Join the Lab</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <svg width="22" height="16" viewBox="0 0 22 16" fill="currentColor">
+      <rect width="22" height="2" rx="1"/><rect y="7" width="22" height="2" rx="1"/><rect y="14" width="22" height="2" rx="1"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <svg class="ring-svg" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="320" cy="320" r="140"/><circle cx="320" cy="320" r="210"/>
+    <circle cx="320" cy="320" r="280"/><circle cx="320" cy="320" r="320"/>
+    <ellipse cx="320" cy="320" rx="180" ry="310"/>
+    <ellipse cx="320" cy="320" rx="240" ry="310" transform="rotate(30 320 320)"/>
+  </svg>
+  <div class="hi">
+    <div>
+      <div class="kicker">Malone Lab · Kidney Research Group · Dublin</div>
+      <h1>Andrew F.<br/>Malone</h1>
+      <div class="creds">MB BCh BAO &nbsp;·&nbsp; MD &nbsp;·&nbsp; FRCPI &nbsp;·&nbsp; FASN</div>
+      <p class="role">Transplant Nephrologist &amp; Physician-Scientist</p>
+      <div class="chips">
+        <span class="chip ca">University College Dublin</span>
+        <span class="chip cb">St. Vincent's University Hospital</span>
+        <span class="chip cc">SVPH Dublin</span>
+      </div>
+      <p class="hdesc">The Malone Lab applies single-cell multiomics and computational genomics directly to human kidney biopsy specimens to decode the molecular basis of transplant rejection and glomerular disease — with all analyses performed in-house.</p>
+      <div class="brow">
+        <a href="#research" class="bp">Explore Research</a>
+        <a href="#publications" class="bg">Key Publications</a>
+      </div>
+    </div>
+    <div class="sc fu">
+      <div class="sc-h">Lab at a Glance</div>
+      <div class="sc-r">
+        <div class="sc-n">2018</div>
+        <div class="sc-b"><strong>World First</strong>First to publish scRNA-seq applied to a single human kidney transplant biopsy core</div>
+      </div>
+      <hr class="sc-sep"/>
+      <div class="sc-r">
+        <div class="sc-n">10+</div>
+        <div class="sc-b"><strong>Years at WashU</strong>Associate Professor of Medicine, Washington University School of Medicine, St. Louis</div>
+      </div>
+      <hr class="sc-sep"/>
+      <div class="sc-r">
+        <div class="sc-n">2024</div>
+        <div class="sc-b"><strong>Moved to UCD</strong>New lab established at University College Dublin · St. Vincent's University Hospital</div>
+      </div>
+      <hr class="sc-sep"/>
+      <div class="sc-r">
+        <div class="sc-n">2×</div>
+        <div class="sc-b"><strong>Kidney Biobanks</strong>UCD-SVUH Kidney Biobank &amp; WU Kidney Transplant Biobank</div>
+      </div>
+      <div class="sc-f">ORCID 0000-0002-2997-7531 &nbsp;·&nbsp; @AndrewFMalone</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="rs" id="research">
+  <div class="sec">
+    <div class="fu">
+      <div class="eye">Research Focus</div>
+      <h2>Two Pillars of Inquiry</h2>
+      <p class="lead">We pursue fundamental clinical questions in nephrology by coupling state-of-the-art single-cell and spatial technologies with rigorous computational analysis applied directly to human specimens. All bioinformatic pipelines are executed in-house.</p>
+    </div>
+    <div class="pg">
+      <div class="p fu">
+        <div class="pn">01</div>
+        <h3>Kidney Transplant Genetics &amp; Rejection</h3>
+        <p>We interrogate the transcriptional and molecular landscape of antibody-mediated and T-cell-mediated rejection in kidney allografts at single-cell resolution. Mapping distinct immune cell states, endothelial activation programmes, and novel disease markers within human biopsy specimens, our work aims to redefine the diagnostic and mechanistic understanding of rejection.</p>
+        <p>Active projects include the impact of loss of chromosome Y on delayed graft function — a transatlantic collaboration spanning UCD, Washington University, and Wake Forest — and the KOAR study evaluating donor-derived cell-free DNA (dd-cfDNA) as a non-invasive allograft surveillance biomarker.</p>
+        <div class="tr">
+          <span class="t">scRNA-seq</span><span class="t">scATAC-seq</span><span class="t">CITE-seq</span>
+          <span class="t">CODEX</span><span class="t">dd-cfDNA</span><span class="t">Immune profiling</span><span class="t">Mouse models</span>
+        </div>
+      </div>
+      <div class="p fu">
+        <div class="pn">02</div>
+        <h3>Glomerular Diseases — FSGS, IgA Nephropathy &amp; Alport Syndrome</h3>
+        <p>We study the genetic architecture and molecular pathogenesis of nephrotic syndromes, with a focus on focal segmental glomerulosclerosis (FSGS) and IgA nephropathy. Longstanding interests in inherited kidney diseases have yielded contributions to gene discovery in familial FSGS and functional variant validation in Alport syndrome (COL4A3, COL4A4, COL4A5).</p>
+        <p>We couple whole-exome sequencing, single-cell approaches, and computational genomics to uncover disease mechanisms, identify novel diagnostic markers, and characterise recurrent FSGS following renal transplantation — bridging both pillars of the lab's research programme.</p>
+        <div class="tr">
+          <span class="t g">WES / NGS</span><span class="t g">scRNA-seq</span>
+          <span class="t g">Functional validation</span><span class="t g">Immunostaining</span><span class="t g">Bioinformatics</span>
+        </div>
+      </div>
+    </div>
+    <div class="ms fu">
+      <div class="ms-star">★</div>
+      <div class="ms-txt">
+        <strong>Landmark 2018:</strong> The Malone Lab was the first group globally to publish on the application of single-cell RNA-sequencing to a single-core human kidney transplant biopsy specimen — generating transcriptomes from 8,746 individual cells and resolving 16 distinct cell populations, including previously uncharacterised immune subsets relevant to antibody-mediated rejection.
+        <em style="color:var(--dim);"> — Wu, Malone AF, et al. JASN 2018;29(8):2069–2080.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODS -->
+<section class="mts" id="methods">
+  <div class="sec">
+    <div class="fu">
+      <div class="eye">Experimental Platform</div>
+      <h2>Integrated Multiomics — All In-House</h2>
+      <p class="lead">We integrate multiple single-cell and spatial technologies with end-to-end computational analyses performed entirely within the lab, enabling rapid iteration from bench specimen to biological insight.</p>
+    </div>
+    <div class="mg">
+      <div class="mc fu"><div class="mc-e">Transcriptomics</div><h3>scRNA-seq</h3><p>Single-cell RNA sequencing of kidney transplant biopsy cores and glomerular disease specimens to resolve cell type-specific transcriptional programmes at single-cell resolution.</p></div>
+      <div class="mc fu"><div class="mc-e">Epigenomics</div><h3>scATAC-seq</h3><p>Single-cell chromatin accessibility profiling to map regulatory element activity and transcription factor binding landscapes across cell types in diseased kidney tissue.</p></div>
+      <div class="mc fu"><div class="mc-e">Multimodal</div><h3>CITE-seq</h3><p>Simultaneous measurement of transcriptome and surface proteome from the same single cells, enabling high-resolution immune cell phenotyping beyond mRNA alone.</p></div>
+      <div class="mc fu"><div class="mc-e">Spatial Imaging</div><h3>CODEX</h3><p>Highly multiplexed single-cell spatial imaging to resolve the tissue architecture and spatial organisation of immune infiltrates within kidney biopsy sections in situ.</p></div>
+      <div class="mc fu"><div class="mc-e">Computational</div><h3>In-House Bioinformatics</h3><p>End-to-end pipelines for clustering, trajectory analysis, cell–cell communication modelling, and expressed SNV analysis. All computational work performed internally.</p></div>
+      <div class="mc fu"><div class="mc-e">In Vivo</div><h3>Mouse Transplant Models</h3><p>Murine kidney transplant rejection models complement human biopsy studies, enabling mechanistic validation of candidate pathways and potential therapeutic targets.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="pubs" id="publications">
+  <div class="sec">
+    <div class="fu">
+      <div class="eye">Selected Publications</div>
+      <h2>Key Research Contributions</h2>
+      <p class="lead">Representative publications spanning kidney transplant single-cell genomics, glomerular genetics, and translational nephrology. Full list available on Google Scholar and ORCID.</p>
+    </div>
+    <div class="pl">
+      <div class="pub fu">
+        <div class="py">2024</div>
+        <div>
+          <div class="pt"><a href="https://link.springer.com/article/10.1007/s40472-024-00450-8" target="_blank" rel="noopener">Single Cell Sequencing and Spatial Transcriptomics in Kidney Transplantation</a></div>
+          <div class="pau">Paul RS, <span class="me">Malone AF</span>.</div>
+          <div class="pj">Current Transplantation Reports <span class="pm">· 2024</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2022</div>
+        <div>
+          <div class="pt"><a href="https://pubmed.ncbi.nlm.nih.gov/35372970/" target="_blank" rel="noopener">Monocytes and Macrophages in Kidney Transplantation and Insights from Single Cell RNA-Seq Studies</a></div>
+          <div class="pau"><span class="me">Malone AF</span>.</div>
+          <div class="pj">Kidney360 <span class="pm">· PMID 35372970</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2020</div>
+        <div>
+          <div class="pt"><a href="https://pubmed.ncbi.nlm.nih.gov/32732354/" target="_blank" rel="noopener">Harnessing Expressed Single Nucleotide Variation and Single Cell RNA Sequencing to Define Immune Cell Chimerism in the Rejecting Kidney Transplant</a></div>
+          <div class="pau"><span class="me">Malone AF</span>, Wu H, Fronick C, Fulton RS, Gaut JP, Humphreys BD.</div>
+          <div class="pj">J Am Soc Nephrol <span class="pm">· 2020;31(9):1977–1986 · PMID 32732354</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2019</div>
+        <div>
+          <div class="pt"><a href="https://pubmed.ncbi.nlm.nih.gov/30946217/" target="_blank" rel="noopener">Single-Cell Transcriptomics and Solid Organ Transplantation</a></div>
+          <div class="pau"><span class="me">Malone AF</span>, Wu H, Humphreys BD.</div>
+          <div class="pj">Transplantation <span class="pm">· 2019;103(9):1776–1782 · PMID 30946217</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2018</div>
+        <div>
+          <div class="pt"><a href="https://pubmed.ncbi.nlm.nih.gov/29980650/" target="_blank" rel="noopener">Single-Cell Transcriptomics of a Human Kidney Allograft Biopsy Specimen Defines a Diverse Inflammatory Response <span class="bdg gd">Landmark</span></a></div>
+          <div class="pau">Wu H, <span class="me">Malone AF</span>, Donnelly EL, Kirita Y, Uchimura K, Ramakrishnan SM, Gaut JP, Humphreys BD.</div>
+          <div class="pj">J Am Soc Nephrol <span class="pm">· 2018;29(8):2069–2080 · PMID 29980650</span> <span class="bdg">First in field</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2018</div>
+        <div>
+          <div class="pt"><a href="https://pubmed.ncbi.nlm.nih.gov/29395072/" target="_blank" rel="noopener">Bringing Renal Biopsy Interpretation into the Molecular Age with Single-Cell RNA Sequencing</a></div>
+          <div class="pau"><span class="me">Malone AF</span>, Wu H, Humphreys BD.</div>
+          <div class="pj">Seminars in Nephrology <span class="pm">· 2018;38:31–39 · PMID 29395072</span></div>
+        </div>
+      </div>
+      <div class="pub fu">
+        <div class="py">2014</div>
+        <div>
+          <div class="pt">Rare Hereditary COL4A3/COL4A4 Variants May Be Mistaken for Familial Focal Segmental Glomerulosclerosis</div>
+          <div class="pau"><span class="me">Malone AF</span>, et al.</div>
+          <div class="pj">Kidney International <span class="pm">· NGS panel study identifying COL4A3/COL4A4 variants in ~10% of familial FSGS</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="plinks fu">
+      <a href="https://scholar.google.com/citations?user=gQH39-cAAAAJ&hl=en" target="_blank" rel="noopener" class="bp">Google Scholar</a>
+      <a href="https://orcid.org/0000-0002-2997-7531" target="_blank" rel="noopener" class="bg">ORCID</a>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Malone+AF%5BAuthor%5D+kidney&sort=date" target="_blank" rel="noopener" class="bg">PubMed</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="abt" id="about">
+  <div class="sec">
+    <div class="fu"><div class="eye">Principal Investigator</div><h2>Dr. Andrew F. Malone</h2></div>
+    <div class="ag">
+      <div class="bio fu">
+        <p>Dr. Andrew Malone is a Consultant Nephrologist and Physician-Scientist at St. Vincent's University Hospital and St. Vincent's Private Hospital, Dublin, where he leads a research laboratory at University College Dublin. He holds a Bachelor's degree in Biochemistry from Trinity College Dublin and his medical degree (MB BCh BAO) from the Royal College of Surgeons in Ireland, followed by an MD by research at University College Dublin.</p>
+        <p>After completing Internal Medicine training at Beaumont Hospital Dublin, Dr. Malone undertook a three-year Nephrology Fellowship at Duke University Medical Center before completing a Transplantation Nephrology Fellowship at Washington University in St. Louis. He joined the faculty at Washington University School of Medicine in 2015 as Assistant Professor, subsequently promoted to Associate Professor of Medicine — a position he held for approximately a decade before returning to Ireland.</p>
+        <p>As a scientist, Dr. Malone has reached the forefront of transplantation genetics. His group was the first in the world to publish on the application of single-cell RNA-sequencing to a human kidney transplant biopsy core, a landmark study that has shaped the field's approach to allograft biology. His broader research spans the molecular mechanisms of FSGS, IgA nephropathy, and Alport syndrome, with contributions to gene discovery and functional variant classification.</p>
+        <p>Dr. Malone received the ASCI Young Physician-Scientist Award (2020), the CSCTR Early Career Development Award (2021), and served as a JASN Editorial Fellow (2021–2023). He was a member of the ASN Policy and Advocacy Committee and participated in the 2022 Kidney Health Advocacy Day on Capitol Hill. He is a Fellow of the Royal College of Physicians of Ireland (FRCPI) and Fellow of the American Society of Nephrology (FASN), listed on the Irish specialist register for Internal Medicine and Nephrology. He has served as Principal Site Investigator on numerous clinical trials in nephrology and transplantation since 2014.</p>
+        <p>Dr. Malone is an active contributor to nephrology education and discourse through the AJKD Blog, Renal Fellow Network (faculty advisor), NephMadness, and the nephrology community on social media as <a href="https://x.com/AndrewFMalone" target="_blank" rel="noopener" style="color:var(--sky);text-decoration:none;">@AndrewFMalone</a>.</p>
+      </div>
+      <div>
+        <div class="scard fu">
+          <span class="slbl">Credentials</span>
+          <ul class="cl">
+            <li>MB BCh BAO — RCSI</li>
+            <li>BSc Biochemistry — TCD</li>
+            <li>MD by Research — UCD</li>
+            <li>FRCPI</li>
+            <li>FASN</li>
+          </ul>
+        </div>
+        <div class="scard fu">
+          <span class="slbl">Honours &amp; Awards</span>
+          <div class="aw"><div class="awt">ASCI Young Physician-Scientist Award</div><div class="awy">2020 · American Society for Clinical Investigation</div></div>
+          <div class="aw"><div class="awt">Early Career Development Award</div><div class="awy">2021 · Central Society for Clinical &amp; Translational Research</div></div>
+          <div class="aw"><div class="awt">JASN Editorial Fellow</div><div class="awy">2021–2023 · J Am Soc Nephrol</div></div>
+        </div>
+        <div class="scard fu">
+          <span class="slbl">Career Timeline</span>
+          <div class="tl">
+            <div class="tlr"><div class="tly">2024–</div><div class="tld"></div><div class="tlc"><strong>UCD / SVUH, Dublin</strong><span>PI · Consultant Nephrologist</span></div></div>
+            <div class="tlr"><div class="tly">2015–23</div><div class="tld"></div><div class="tlc"><strong>Washington University, St. Louis</strong><span>Asst / Assoc Professor of Medicine</span></div></div>
+            <div class="tlr"><div class="tly">~2013</div><div class="tld"></div><div class="tlc"><strong>WashU Transplant Nephrology Fellow</strong><span>St. Louis, Missouri</span></div></div>
+            <div class="tlr"><div class="tly">~2010</div><div class="tld"></div><div class="tlc"><strong>Duke University Medical Center</strong><span>Nephrology Fellowship (3 years)</span></div></div>
+            <div class="tlr"><div class="tly">Earlier</div><div class="tld"></div><div class="tlc"><strong>Beaumont Hospital Dublin</strong><span>Internal Medicine training</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIOBANKS -->
+<section class="bbs" id="biobanks">
+  <div class="sec">
+    <div class="fu">
+      <div class="eye">Research Infrastructure</div>
+      <h2>Kidney Biobanks</h2>
+      <p class="lead">The Malone Lab maintains access to two carefully curated biobanks of kidney biopsy specimens paired with comprehensive clinical metadata — forming the substrate for translational multiomics research at scale.</p>
+    </div>
+    <div class="bbg">
+      <div class="bbc fu">
+        <span class="bbt">Active · Dublin, Ireland</span>
+        <h3>UCD-SVUH Kidney Biobank</h3>
+        <p>Established following Dr. Malone's return to Ireland in 2024, the UCD–St. Vincent's University Hospital Kidney Biobank is a prospectively curated repository of kidney transplant and glomerular disease biopsy specimens paired with longitudinal clinical data, supporting multiomics investigations including scRNA-seq, spatial transcriptomics, and immune cell profiling.</p>
+      </div>
+      <div class="bbc fu">
+        <span class="bbt">Legacy · Washington University, St. Louis</span>
+        <h3>WU Kidney Transplant Biobank</h3>
+        <p>Built during Dr. Malone's decade at Washington University — home to one of the largest kidney transplant programmes in the United States — this repository of clinically indicated transplant biopsy specimens and associated metadata formed the substrate for the landmark 2018 scRNA-seq study and continues to support active transatlantic collaborations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL -->
+<section class="ts">
+  <div class="sec">
+    <div class="fu"><div class="eye">Open Resource</div><h2>Kidney Allograft Analysis Tool</h2></div>
+    <div class="tb fu">
+      <div>
+        <h3>Interactive Single-Cell Data Explorer</h3>
+        <p>The Malone Lab hosts an open interactive tool for exploring kidney allograft single-cell transcriptomic data, enabling clinicians and researchers to interrogate cell populations, gene expression, and rejection signatures directly in the browser without requiring local computational infrastructure.</p>
+      </div>
+      <div style="flex-shrink:0;"><a href="https://malonelab.com/interactivedata/" target="_blank" rel="noopener" class="bp">Open Analysis Tool</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="js" id="join">
+  <div class="sec">
+    <div class="fu"><div class="eye">Open Positions</div><h2>Join the Malone Lab</h2></div>
+    <div class="ji">
+      <div class="fu">
+        <p>We are actively recruiting motivated researchers with interests in applying single-cell genomics, spatial transcriptomics, and computational biology to the study of kidney transplantation and glomerular disease.</p>
+        <p>Prospective PhD students, postdoctoral fellows, and clinical research fellows with backgrounds in nephrology, molecular biology, bioinformatics, or computational genomics are particularly encouraged to get in touch. Experience with scRNA-seq analysis pipelines (R or Python; Seurat, Scanpy) is advantageous but not essential — rigour and curiosity are the primary requisites.</p>
+        <div class="brow"><a href="mailto:andrew.malone@ucd.ie" class="bp">Get in Touch</a><a href="https://malonelab.com" target="_blank" rel="noopener" class="bg">malonelab.com</a></div>
+      </div>
+      <div class="fu">
+        <div class="cd"><div class="cdi">✉</div><div class="cdv"><span class="cdl">Research Email</span><a href="mailto:andrew.malone@ucd.ie">andrew.malone@ucd.ie</a></div></div>
+        <div class="cd"><div class="cdi">✉</div><div class="cdv"><span class="cdl">Clinical Email</span><a href="mailto:amalone@svcpc.ie">amalone@svcpc.ie</a></div></div>
+        <div class="cd"><div class="cdi">📍</div><div class="cdv"><span class="cdl">Clinical Address</span>Suite 2, 1st Floor, St. Vincent's Private Hospital<br/>Merrion Road, Dublin 4, D04 N2E0</div></div>
+        <div class="cd"><div class="cdi">𝕏</div><div class="cdv"><span class="cdl">X / Twitter</span><a href="https://x.com/AndrewFMalone" target="_blank" rel="noopener">@AndrewFMalone</a></div></div>
+        <div class="cd"><div class="cdi">◎</div><div class="cdv"><span class="cdl">ORCID</span><a href="https://orcid.org/0000-0002-2997-7531" target="_blank" rel="noopener">0000-0002-2997-7531</a></div></div>
+        <div class="cd"><div class="cdi">☎</div><div class="cdv"><span class="cdl">Clinical Phone</span><a href="tel:0877518776">087 751 8776</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fbrand">Malone Lab — Kidney Transplant Genetics &amp; Glomerular Disease</div>
+    <div class="fl">
+      <a href="https://malonelab.com" target="_blank" rel="noopener">malonelab.com</a>
+      <a href="https://www.ucd.ie" target="_blank" rel="noopener">UCD</a>
+      <a href="https://www.stvincents.ie" target="_blank" rel="noopener">SVUH</a>
+      <a href="https://svph.ie/healthcare-professionals/consultants-directory/dr-andrew-malone/" target="_blank" rel="noopener">SVPH Profile</a>
+      <a href="https://scholar.google.com/citations?user=gQH39-cAAAAJ" target="_blank" rel="noopener">Scholar</a>
+      <a href="https://orcid.org/0000-0002-2997-7531" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://x.com/AndrewFMalone" target="_blank" rel="noopener">@AndrewFMalone</a>
+    </div>
+    <div class="fc">University College Dublin · St. Vincent's University Hospital · Dublin, Ireland &nbsp;·&nbsp; Content compiled from publicly available sources for informational purposes.</div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('bar').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+  document.getElementById('nav').classList.toggle('on',d.scrollTop>10);
+});
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*70);io.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.fu').forEach(el=>io.observe(el));
+document.getElementById('burger').addEventListener('click',()=>document.getElementById('navlist').classList.toggle('open'));
+document.querySelectorAll('#navlist a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlist').classList.remove('open')));
+</script>
+</body>
+</html>
