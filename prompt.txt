@@ -1,0 +1,31 @@
+# Prompt used for claude.ai
+
+Using the following online information, generate a website with the focus of it being used for a research laboratory headed by the  transplant nephrologist Andrew Malone, MB, BCh, BAO, MD. 
+
+The website should be professional in nature with a contemporary and studious tone to it. 
+
+Following are some information sources which should be used to populate the website.
+
+Current position:
+
+https://svph.ie/healthcare-professionals/consultants-directory/dr-andrew-malone/
+
+Historic: 
+
+https://nephrology.wustl.edu/division-says-goodbye-to-dr-andrew-malone/
+
+https://ajkdblog.org/meet-the-team/andrew-malone/
+
+Current Lab homepage:
+
+https://malonelab.com/
+
+Publications:
+
+Google Scholar: https://scholar.google.com/citations?user=gQH39-cAAAAJ&hl=en
+
+ORCID: https://orcid.org/0000-0002-2997-7531
+
+Socials:
+
+Twitter/X @AndrewFMalone
